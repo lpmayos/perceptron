@@ -1,5 +1,8 @@
 import numpy
 import matplotlib.pyplot as plt
+from images2gif import writeGif
+from PIL import Image
+import os
 
 
 class Perceptron(object):
@@ -98,7 +101,24 @@ class Perceptron(object):
                 plt.savefig('p_N%s_it%s' % (str(N), str(iteration)), dpi=200, bbox_inches='tight')
         self.w = w
 
+
+def create_animated_gif():
+    """
+    """
+    file_names = sorted((fn for fn in os.listdir('.') if fn.endswith('.png')))
+    images = [Image.open(fn) for fn in file_names]
+    size = (1390, 1097)
+    for image in images:
+        image.thumbnail(size, Image.ANTIALIAS)
+
+    print writeGif.__doc__
+
+    filename = "my_gif.GIF"
+    writeGif(filename, images, duration=0.2)
+
+
 if __name__ == "__main__":
     p = Perceptron(20)
-    p.plot()
+    #p.plot()
     p.pla(save=True)
+    create_animated_gif()

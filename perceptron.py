@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from images2gif import writeGif
 from PIL import Image
 import os
+import time
 
 
 class Perceptron(object):
@@ -100,10 +101,11 @@ class Perceptron(object):
                 plt.title('N = %s, Iteration %s\n' % (str(N), str(iteration)))
                 plt.savefig('p_N%s_it%s' % (str(N), str(iteration)), dpi=200, bbox_inches='tight')
         self.w = w
+        return iteration
 
 
-def create_animated_gif():
-    """
+def create_animated_gif(filename, delete_files=False):
+    """ creates an animated gif with all png images of the current directory
     """
     file_names = sorted((fn for fn in os.listdir('.') if fn.endswith('.png')))
     images = [Image.open(fn) for fn in file_names]
@@ -111,14 +113,21 @@ def create_animated_gif():
     for image in images:
         image.thumbnail(size, Image.ANTIALIAS)
 
+    if delete_files:
+        for fn in file_names:
+            os.remove(fn)
+
     print writeGif.__doc__
 
-    filename = "my_gif.GIF"
-    writeGif(filename, images, duration=0.2)
+    writeGif(filename, images, duration=0.4)
 
 
 if __name__ == "__main__":
-    p = Perceptron(20)
-    #p.plot()
-    p.pla(save=True)
-    create_animated_gif()
+    start = time.time()
+    N = 20
+    p = Perceptron(N)
+    iterations = p.pla(save=True)
+    end = time.time()
+    print 'N = %s; Iterations = %s; Time = %s seconds' % (str(N), str(iterations), str(end - start))
+
+    create_animated_gif('p_N%s_%s.gif' % (str(N), str(time.time())), delete_files=True)

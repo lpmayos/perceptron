@@ -4,6 +4,7 @@ from images2gif import writeGif
 from PIL import Image
 import os
 import time
+import sys
 
 
 class Perceptron(object):
@@ -123,11 +124,17 @@ def create_animated_gif(filename, delete_files=False):
 
 
 if __name__ == "__main__":
+    try:
+        N = int(sys.argv[1])
+    except:
+        print "** ERROR ** You should pass a number as an argument, indicating the length of the dataset you want to use"
+        sys.exit(2)
+
     start = time.time()
-    N = 20
     p = Perceptron(N)
     iterations = p.pla(save=True)
     end = time.time()
-    print 'N = %s; Iterations = %s; Time = %s seconds' % (str(N), str(iterations), str(end - start))
 
     create_animated_gif('p_N%s_%s.gif' % (str(N), str(time.time())), delete_files=True)
+
+    print 'N = %s; Iterations = %s; Time = %s seconds' % (str(N), str(iterations), str(end - start))

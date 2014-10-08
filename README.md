@@ -17,12 +17,22 @@ Clone and execute the different files from the command line with:
 
 * perceptron.py: two dimensional perceptron, with image generation
     - <blockquote>$ python perceptron.py 20</blockquote>
+    - Parameters:
+        1. number of points
 
 * perceptron_no_images.py: two dimensional perceptron, without image generation
     - <blockquote>$ python perceptron_no_images.py 20</blockquote>
+    - Parameters:
+        1. number of points
 
-* perceptron_d_dimensional.py: d-dimensional perceptron, with image generation for d=2
-    - <blockquote>$ python perceptron_d_dimensional.py 2 20</blockquote>
+* perceptron_d_dimensional.py: d-dimensional perceptron, with image generation
+    - <blockquote>$ python perceptron_d_dimensional.py 2 20 True True True</blockquote>
+    - Parameters:
+        1. number of dimensions
+        2. number of points
+        3. generate images? (True/False)
+        4. if 3, generate animated gif with all the images?
+        5. if 4, keep intermediate images? (if False, you'll just obtain animated gif)
 
 
 requirements
